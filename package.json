@@ -1,0 +1,12 @@
+{
+  "name": "mlbb-counter-assistant",
+  "version": "1.0.0",
+  "description": "MLBB Counter-Pick & Draft Strategy Assistant",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build.js"
+  },
+  "keywords": ["mlbb", "counter-pick", "draft-simulator"],
+  "author": "",
+  "license": "ISC"
+}

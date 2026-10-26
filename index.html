@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLBB Counter-Pick & Draft Strategy Assistant | Mythic Meta Analyzer</title>
+  <meta name="description" content="Dominate your ranked matches with real-time Mobile Legends: Bang Bang counter-pick recommendations, lane matchup breakdowns, 5v5 draft threat analysis, and item counter guides.">
+  <meta name="keywords" content="MLBB, Mobile Legends, Counter Pick, Draft Simulator, Mobile Legends Counter, MLBB Meta, Item Counters">
+  <meta name="theme-color" content="#06090f">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient cyber background grid -->
+  <div class="cyber-grid"></div>
+
+  <div class="app-container">
+    <!-- Header Area -->
+    <header class="app-header">
+      <div class="brand-area">
+        <div class="brand-badge">⚡</div>
+        <div class="brand-titles">
+          <h1>
+            MLBB Counter Pick
+            <span class="rank-tag">Mythic Glory AI</span>
+          </h1>
+          <p>Real-Time Opponent Counter Matrix, 5v5 Draft Simulator & Tactical Matchup Intel</p>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" aria-label="Mode Navigation">
+        <button id="tabHome" class="tab-btn active" title="Command Center & Meta Overview">
+          <span>🏠</span> Home
+        </button>
+        <button id="tabDuel" class="tab-btn" title="1v1 Opponent Lane Counter">
+          <span>🎯</span> Counter
+        </button>
+        <button id="tabBuilds" class="tab-btn" title="Hero Pro Builds & Situational Gear">
+          <span>🛡️</span> Builds
+        </button>
+        <button id="tabDraft" class="tab-btn" title="Full 5v5 Team Draft Simulator">
+          <span>⚡</span> 5v5 Draft
+        </button>
+        <button id="tabDatabase" class="tab-btn" title="Hero Roster, Items Codex & Custom Meta">
+          <span>📖</span> Codex & Tools
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <button id="btnSoundToggle" class="btn-icon" title="Toggle Tactile Audio" aria-label="Toggle Sound">
+          🔊
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== MODE 0: HOME / COMMAND CENTER ==================== -->
+    <section id="panelHome" class="view-panel active">
+      <!-- Home Hero Banner -->
+      <div class="home-hero-banner">
+        <div class="home-hero-content">
+          <div class="meta-live-pill">
+            <span class="live-dot"></span> LIVE MYTHIC META V1.9.44 ACTIVE
+          </div>
+          <h2 class="home-hero-title">
+            Dominate Every Matchup With <span class="text-gradient-cyan">Algorithmic Precision</span>
+          </h2>
+          <p class="home-hero-subtitle">
+            Instantly counter any MLBB hero, optimize 6-item pro builds with situational anti-burst & anti-heal swaps, and simulate 5v5 team draft threat profiles.
+          </p>
+
+          <!-- Home Fast Search Bar -->
+          <div class="home-search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="homeHeroSearch" class="search-input" placeholder="Type hero name (e.g. Fanny, Wanwan, Zhuxin, Suyou)..." autocomplete="off">
+            <button id="btnHomeSearch" class="home-search-btn" type="button" title="Search Hero">
+              <span>🔍</span> Search Hero
+            </button>
+            <div id="homeSearchResults" class="home-search-results"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Launchpad Grid (4 Interactive Tool Cards) -->
+      <div class="feature-launchpad-grid">
+        <div class="feature-card" id="btnLaunchCounter" role="button" tabindex="0">
+          <div class="feature-card-icon-wrap" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4);">
+            🎯
+          </div>
+          <div class="feature-card-meta">
+            <h3>Opponent Counter Matrix</h3>
+            <p>1v1 Lane counters, S-Tier hard counters, power spike timelines & item rush tactics.</p>
+            <span class="feature-card-action">Launch Lane Counter →</span>
+          </div>
+        </div>
+
+        <div class="feature-card" id="btnLaunchBuilds" role="button" tabindex="0">
+          <div class="feature-card-icon-wrap" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4);">
+            🛡️
+          </div>
+          <div class="feature-card-meta">
+            <h3>Hero Pro Builds & Swaps</h3>
+            <p>Full 6-item builds, situational anti-burst / anti-heal item swaps, and emblem setups.</p>
+            <span class="feature-card-action">Open Build Workshop →</span>
+          </div>
+        </div>
+
+        <div class="feature-card" id="btnLaunchDraft" role="button" tabindex="0">
+          <div class="feature-card-icon-wrap" style="background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.4);">
+            ⚡
+          </div>
+          <div class="feature-card-meta">
+            <h3>5v5 Draft Simulator</h3>
+            <p>Compose full enemy & ally 5-man squads. Analyze burst, CC, and lane vulnerabilities.</p>
+            <span class="feature-card-action">Simulate Team Draft →</span>
+          </div>
+        </div>
+
+        <div class="feature-card" id="btnLaunchCodex" role="button" tabindex="0">
+          <div class="feature-card-icon-wrap" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4);">
+            📖
+          </div>
+          <div class="feature-card-meta">
+            <h3>Equipment & Passives Codex</h3>
+            <p>Deep-dive into 19+ defense & offense items, passives (Lifebane, Deter), and custom meta.</p>
+            <span class="feature-card-action">Browse Codex →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Meta Spotlight Section (Lane Dominators) -->
+      <div class="home-meta-section">
+        <div class="panel-header" style="margin-bottom: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.5rem;">🔥</span>
+            <div>
+              <h3 class="panel-title" style="font-size: 1.25rem;">Mythic Glory Meta Kings & Lane Dominators</h3>
+              <p style="color: var(--text-dim); font-size: 0.85rem; margin: 0;">Top-tier priority picks in current competitive season</p>
+            </div>
+          </div>
+          <span class="rank-tag">Tier S Champions</span>
+        </div>
+
+        <div id="homeMetaGrid" class="home-meta-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Ranked Pro Tips & Macro Strategies -->
+      <div class="home-tips-section">
+        <div class="panel-header" style="margin-bottom: 0.75rem;">
+          <h3 class="panel-title" style="font-size: 1.1rem;">
+            <span>🧠</span> Essential Ranked Macro Rules
+          </h3>
+          <span style="color: var(--text-dim); font-size: 0.8rem;">Win More Games</span>
+        </div>
+
+        <div class="home-tips-grid">
+          <div class="tip-card">
+            <div class="tip-card-header">
+              <span class="tip-badge" style="background: rgba(239, 68, 68, 0.2); color: var(--danger-red);">Anti-Heal Rule</span>
+              <span style="font-size: 0.8rem; color: var(--text-dim);">Early Game</span>
+            </div>
+            <h4>Never contest sustain laners without Lifebane</h4>
+            <p>Rush Sea Halberd (Attackers), Dominance Ice (Tanks/Fighters), or Glowing Wand (Mages) before 4 minutes against Estes, Yu Zhong, Ruby, or Uranus. Fighting them without anti-heal guarantees lane loss.</p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-card-header">
+              <span class="tip-badge" style="background: rgba(56, 189, 248, 0.2); color: var(--neon-cyan);">Magic Defense Rule</span>
+              <span style="font-size: 0.8rem; color: var(--text-dim);">Itemization</span>
+            </div>
+            <h4>Know Burst vs Continuous Magic Reduction</h4>
+            <p>Athena’s Shield provides 25% instant reduction for 3s against burst combos (Eudora, Kadita). Radiant Armor stacks magic defense up to 6 times against continuous multi-tick damage (Valir, Yve, Joy, Lunox).</p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-card-header">
+              <span class="tip-badge" style="background: rgba(245, 158, 11, 0.2); color: var(--mythic-gold);">Mobility Shutdown</span>
+              <span style="font-size: 0.8rem; color: var(--text-dim);">Drafting</span>
+            </div>
+            <h4>Suppression and Grounding ignore Purify</h4>
+            <p>High-mobility assassins (Fanny, Ling, Joy) can be stopped reliably only with Suppression (Franco, Kaja) or Grounding / Bounce (Minsitthar, Khufra). Standard stuns can be purified.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MODE 1: 1V1 DUEL LANE COUNTER ==================== -->
+    <main id="panelDuel" class="view-panel">
+      <div class="duel-grid">
+        <!-- Sidebar: Opponent Picker -->
+        <aside class="sidebar-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <span>🎯</span> Select Opponent Hero
+            </h2>
+          </div>
+
+          <!-- Active Selection Spotlight -->
+          <div class="selection-spotlight">
+            <div class="spotlight-inner">
+              <div id="duelSpotlightAvatar" class="spotlight-avatar">FA</div>
+              <div class="spotlight-meta">
+                <h3 id="duelSpotlightName">Fanny</h3>
+                <div id="duelSpotlightTags" class="tags-row">
+                  <span class="tag-badge lane-badge">Jungle</span>
+                  <span class="tag-badge">Assassin</span>
+                  <span class="tag-badge">Physical</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search Filter -->
+          <div class="search-box">
+            <div class="search-input-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="duelOpponentSearch" class="search-input" placeholder="Search opponent (e.g. Ling, Wanwan)...">
+            </div>
+            <button id="btnDuelSearch" class="search-box-btn" type="button" title="Search Opponent">
+              <span>🔍</span> Search
+            </button>
+          </div>
+
+          <!-- Lane Filter Pills -->
+          <div id="duelLanePills" class="lane-filter-bar">
+            <!-- Populated via JavaScript -->
+          </div>
+
+          <!-- Hero Selection Grid -->
+          <div id="duelRosterGrid" class="roster-picker-grid">
+            <!-- Populated via JavaScript -->
+          </div>
+        </aside>
+
+        <!-- Main Content: Matchup Intelligence & Counter Tiers -->
+        <section class="counter-results-panel">
+          <!-- Tactical Matchup Intel Card -->
+          <div id="duelIntelCard" class="matchup-intel-card">
+            <!-- Populated via JavaScript -->
+          </div>
+
+          <!-- Opponent Hero Skills & Passive Codex Card -->
+          <div id="duelSkillsCard" class="hero-skills-card">
+            <!-- Populated via JavaScript -->
+          </div>
+
+          <!-- Complete 6-Item Counter Build & Loadout Card -->
+          <div id="duelCounterBuildCard" class="counter-build-card">
+            <!-- Populated via JavaScript -->
+          </div>
+
+          <!-- Counter Tiers Container -->
+          <div id="duelResultsContainer">
+            <!-- S-Tier, A-Tier, Avoid Picks rendered via JS -->
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ==================== MODE 2: HERO BUILDS & GEAR ==================== -->
+    <main id="panelBuilds" class="view-panel">
+      <div class="duel-grid">
+        <!-- Sidebar: Hero Picker for Builds -->
+        <aside class="sidebar-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <span>🛡️</span> Select Hero for Build
+            </h2>
+          </div>
+
+          <!-- Active Selection Spotlight -->
+          <div class="selection-spotlight">
+            <div class="spotlight-inner">
+              <div id="buildsSpotlightAvatar" class="spotlight-avatar">FA</div>
+              <div class="spotlight-meta">
+                <h3 id="buildsSpotlightName">Fanny</h3>
+                <div id="buildsSpotlightTags" class="tags-row">
+                  <span class="tag-badge lane-badge">Jungle</span>
+                  <span class="tag-badge">Assassin</span>
+                  <span class="tag-badge">Physical</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Search Filter -->
+          <div class="search-box">
+            <div class="search-input-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="buildsHeroSearch" class="search-input" placeholder="Search hero for build...">
+            </div>
+            <button id="btnBuildsSearch" class="search-box-btn" type="button" title="Search Hero Build">
+              <span>🔍</span> Search
+            </button>
+          </div>
+
+          <!-- Lane Filter Pills -->
+          <div id="buildsLanePills" class="lane-filter-bar">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- Hero Selection Grid -->
+          <div id="buildsRosterGrid" class="roster-picker-grid">
+            <!-- Populated via JS -->
+          </div>
+        </aside>
+
+        <!-- Main Build Workshop Showcase -->
+        <section class="counter-results-panel">
+          <!-- Active Hero Overview Banner -->
+          <div id="buildsHeroHeader" class="matchup-intel-card">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- 6-Item Core Pro Build -->
+          <div class="counter-build-card">
+            <div class="panel-header" style="margin-bottom: 0.75rem;">
+              <h3 class="panel-title">
+                <span>⚔️</span> Recommended 6-Item Pro Loadout
+              </h3>
+              <span class="rank-tag">Mythic Glory Core</span>
+            </div>
+            <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: -0.25rem; margin-bottom: 1rem;">
+              Click any equipment slot to inspect full stats, item cost, passives (Lifebane, Armor Buster, Spellbreaker), and counter synergies.
+            </p>
+            <div id="buildsCoreGrid" class="build-slots-grid">
+              <!-- 6 items populated via JS -->
+            </div>
+          </div>
+
+          <!-- Situational Counter Swaps (Adapt to Enemy Team) -->
+          <div class="counter-build-card">
+            <div class="panel-header" style="margin-bottom: 0.75rem;">
+              <h3 class="panel-title">
+                <span>🔄</span> Situational Counter Swaps
+              </h3>
+              <span style="color: var(--text-dim); font-size: 0.8rem;">Tactical In-Game Adjustments</span>
+            </div>
+            <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: -0.25rem; margin-bottom: 1rem;">
+              Do not use static builds every game! Adjust these slots based on opponent draft threats:
+            </p>
+            <div id="buildsSwapsList" class="situational-swaps-list">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+          <!-- Emblem Setup & Battle Spell Recommendations -->
+          <div class="counter-build-card">
+            <div class="panel-header" style="margin-bottom: 0.75rem;">
+              <h3 class="panel-title">
+                <span>✨</span> Recommended Emblem & Battle Spell
+              </h3>
+              <span class="rank-tag">Optimal Talent Synergy</span>
+            </div>
+            <div id="buildsLoadoutGrid" class="build-loadout-grid">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ==================== MODE 3: 5V5 DRAFT SIMULATOR ==================== -->
+    <section id="panelDraft" class="view-panel">
+      <div class="draft-layout">
+        <!-- Draft Arena: Enemy & Ally Teams -->
+        <div class="draft-arena">
+          <!-- Enemy Side (Red) -->
+          <div class="team-draft-card enemy-side">
+            <div class="team-header-row">
+              <h3 class="team-title" style="color: var(--danger-red);">
+                <span>⚔️</span> Enemy Team Draft
+              </h3>
+              <span style="font-size: 0.8rem; color: var(--text-dim);">Pick 1 to 5 Opponent Heroes</span>
+            </div>
+            <div id="enemySlots" class="team-slots-row">
+              <!-- 5 Enemy Slots -->
+            </div>
+          </div>
+
+          <!-- Ally Side (Blue) -->
+          <div class="team-draft-card ally-side">
+            <div class="team-header-row">
+              <h3 class="team-title" style="color: var(--neon-cyan);">
+                <span>🛡️</span> Your Team Draft
+              </h3>
+              <span style="font-size: 0.8rem; color: var(--text-dim);">Pick Your Allies</span>
+            </div>
+            <div id="allySlots" class="team-slots-row">
+              <!-- 5 Ally Slots -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Hero Picker for Draft -->
+        <div class="sidebar-panel">
+          <div class="panel-header">
+            <h3 class="panel-title" style="font-size: 1rem;">
+              <span>⚡</span> Click Hero to Lock Into Active Draft Slot
+            </h3>
+            <div class="search-box" style="margin: 0; min-width: 280px;">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="draftHeroSearch" class="search-input" placeholder="Quick filter hero...">
+              </div>
+              <button id="btnDraftSearch" class="search-box-btn" type="button" title="Search Hero">
+                <span>🔍</span> Search
+              </button>
+            </div>
+          </div>
+          <div id="draftRosterPicker" class="roster-picker-grid" style="max-height: 140px;">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Threat Matrix & Strategic Insights -->
+        <div class="threat-analysis-card">
+          <div class="panel-header" style="margin-bottom: 0.5rem;">
+            <h3 class="panel-title">
+              <span>📊</span> Enemy Composition Threat Matrix & Vulnerabilities
+            </h3>
+            <span class="rank-tag">Live Composite Engine</span>
+          </div>
+
+          <!-- Threat Gauges -->
+          <div id="threatBarsGrid" class="threat-bars-grid">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- Tactical Alerts -->
+          <div id="draftInsights" class="insights-row">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Recommended Picks by Role -->
+        <div class="threat-analysis-card">
+          <div class="panel-header" style="margin-bottom: 0.75rem;">
+            <h3 class="panel-title">
+              <span>🏆</span> Recommended Counter-Picks for Unpicked Roles
+            </h3>
+            <div id="draftRoleTabs" class="lane-filter-bar" style="margin: 0; padding: 0;">
+              <!-- Role Tabs (Gold, EXP, Mid, Roam, Jungle) -->
+            </div>
+          </div>
+
+          <div id="draftRoleRecs">
+            <!-- Rendered role cards -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MODE 3: HERO DATABASE & CUSTOM META ==================== -->
+    <section id="panelDatabase" class="view-panel">
+        <!-- Codex Mode Toggle Bar -->
+        <div class="codex-switch-bar">
+          <button id="btnCodexHeroes" class="codex-tab-btn active">
+            🦸 Heroes & Skills Codex (133)
+          </button>
+          <button id="btnCodexItems" class="codex-tab-btn">
+            🛡️ Equipment Passives & Stats Codex (19)
+          </button>
+        </div>
+
+        <!-- VIEW A: HEROES CODEX -->
+        <div id="dbHeroView" class="codex-view-section active">
+          <div class="app-header" style="margin-bottom: 0;">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+              <div class="search-box" style="margin: 0; min-width: 280px;">
+                <div class="search-input-wrap">
+                  <span class="search-icon">🔍</span>
+                  <input type="text" id="dbHeroSearch" class="search-input" placeholder="Search hero or tag...">
+                </div>
+                <button id="btnDbHeroSearch" class="search-box-btn" type="button" title="Search Hero in Codex">
+                  <span>🔍</span> Search
+                </button>
+              </div>
+              <select id="dbLaneFilter" class="form-select" style="min-width: 160px;">
+                <option value="ALL">All Lanes</option>
+                <option value="Gold">Gold Lane</option>
+                <option value="EXP">EXP Lane</option>
+                <option value="Mid">Mid Lane</option>
+                <option value="Roam">Roamer</option>
+                <option value="Jungle">Jungler</option>
+              </select>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <button id="btnNewHero" class="btn-primary">
+                <span>+</span> Add Custom Hero / Meta
+              </button>
+              <button id="btnExportJson" class="btn-secondary" title="Download active meta configuration as JSON">
+                📥 Export JSON
+              </button>
+              <button id="btnImportJson" class="btn-secondary" title="Load custom meta configuration JSON">
+                📤 Import JSON
+              </button>
+              <input type="file" id="fileImportInput" accept=".json" style="display: none;">
+            </div>
+          </div>
+
+          <!-- Database Cards Grid -->
+          <div id="dbRosterGrid" class="roster-grid-view">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- VIEW B: EQUIPMENT PASSIVES & STATS CODEX -->
+        <div id="dbItemView" class="codex-view-section" style="display: none;">
+          <div class="app-header" style="margin-bottom: 0;">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; flex: 1;">
+              <div class="search-box" style="margin: 0; min-width: 280px; flex: 1; max-width: 480px;">
+                <div class="search-input-wrap">
+                  <span class="search-icon">🔍</span>
+                  <input type="text" id="dbItemSearch" class="search-input" placeholder="Search items, passives (e.g. Lifebane, Deter, Shield)...">
+                </div>
+                <button id="btnDbItemSearch" class="search-box-btn" type="button" title="Search Equipment">
+                  <span>🔍</span> Search
+                </button>
+              </div>
+              <div id="dbItemCategoryFilter" class="lane-filter-bar" style="margin: 0; padding: 0;">
+                <!-- Category filters -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Cards Grid -->
+          <div id="dbItemsGrid" class="items-codex-grid">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== GLOBAL MODAL ==================== -->
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle" style="font-family: var(--font-heading); font-size: 1.3rem; text-transform: uppercase;">
+          Hero Dossier
+        </h3>
+        <button id="btnModalClose" class="btn-close-modal" aria-label="Close modal">✕</button>
+      </div>
+      <div id="modalBody">
+        <!-- Dynamic modal body -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="bundle.js"></script>
+</body>
+</html>
